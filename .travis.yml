@@ -1,128 +1,111 @@
----
 sudo: false
 language: rust
 os:
-  - linux
-  - osx
+- linux
+- osx
 dist: trusty
 osx_image: xcode9.2
 rust: stable
 env:
   global:
-    - THERMITE_DEBUG_FILENAME: /tmp/thermite-debug.log
+  - THERMITE_DEBUG_FILENAME: "/tmp/thermite-debug.log"
   matrix:
-    - SLUGRUST_RUBY_VERSION: 2.3.6
-    - SLUGRUST_RUBY_VERSION: 2.4.3
-    - SLUGRUST_RUBY_VERSION: 2.5.1
+  - SLUGRUST_RUBY_VERSION: 2.3.6
+  - SLUGRUST_RUBY_VERSION: 2.4.3
+  - SLUGRUST_RUBY_VERSION: 2.5.1
 matrix:
   include:
-    - os: linux
-      dist: trusty
-      env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
-    - os: linux
-      dist: trusty
-      env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
-    - os: linux
-      dist: trusty
-      env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode8
-      env: SLUGRUST_RUBY_VERSION=2.3.5
-    - os: osx
-      osx_image: xcode9.3beta
-      env: SLUGRUST_RUBY_VERSION=2.3.5
-    - os: osx
-      osx_image: xcode8
-      env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode9.2
-      env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode9.3beta
-      env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode8
-      env: SLUGRUST_RUBY_VERSION=2.4.2
-    - os: osx
-      osx_image: xcode9.3beta
-      env: SLUGRUST_RUBY_VERSION=2.4.2
-    - os: osx
-      osx_image: xcode8
-      env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode9.2
-      env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode9.3beta
-      env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode8
-      env: SLUGRUST_RUBY_VERSION=2.5.1
-    - os: osx
-      osx_image: xcode9.3beta
-      env: SLUGRUST_RUBY_VERSION=2.5.1
-    - os: osx
-      osx_image: xcode8
-      env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode9.2
-      env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
-    - os: osx
-      osx_image: xcode9.3beta
-      env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
-
+  - os: linux
+    dist: trusty
+    env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+  - os: linux
+    dist: trusty
+    env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+  - os: linux
+    dist: trusty
+    env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode8
+    env: SLUGRUST_RUBY_VERSION=2.3.5
+  - os: osx
+    osx_image: xcode9.3beta
+    env: SLUGRUST_RUBY_VERSION=2.3.5
+  - os: osx
+    osx_image: xcode8
+    env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode9.2
+    env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode9.3beta
+    env: SLUGRUST_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode8
+    env: SLUGRUST_RUBY_VERSION=2.4.2
+  - os: osx
+    osx_image: xcode9.3beta
+    env: SLUGRUST_RUBY_VERSION=2.4.2
+  - os: osx
+    osx_image: xcode8
+    env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode9.2
+    env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode9.3beta
+    env: SLUGRUST_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode8
+    env: SLUGRUST_RUBY_VERSION=2.5.1
+  - os: osx
+    osx_image: xcode9.3beta
+    env: SLUGRUST_RUBY_VERSION=2.5.1
+  - os: osx
+    osx_image: xcode8
+    env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode9.2
+    env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
+  - os: osx
+    osx_image: xcode9.3beta
+    env: SLUGRUST_RUBY_VERSION=2.5.1 RUBY_STATIC=1
 cache:
   cargo: true
   directories:
-    - $TRAVIS_BUILD_DIR/vendor/bundle
-
+  - "$TRAVIS_BUILD_DIR/vendor/bundle"
 before_install:
-  - |
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      brew update
-    fi
-    rvm install "$SLUGRUST_RUBY_VERSION"
-    rvm use "$SLUGRUST_RUBY_VERSION"
-    ruby --version
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]] && ! which bundle > /dev/null; then
-      gem install bundler
-    fi
-  - bundle install --jobs=3 --retry=3 --path=$TRAVIS_BUILD_DIR/vendor/bundle
-
+- |
+  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    brew update
+  fi
+  rvm install "$SLUGRUST_RUBY_VERSION"
+  rvm use "$SLUGRUST_RUBY_VERSION"
+  ruby --version
+  if [[ "$TRAVIS_OS_NAME" == "osx" ]] && ! which bundle > /dev/null; then
+    gem install bundler
+  fi
+- bundle install --jobs=3 --retry=3 --path=$TRAVIS_BUILD_DIR/vendor/bundle
 script:
-  - bundle exec rake spec
-  - bundle exec rake thermite:tarball
-  - bundle exec rake install
-  # - |
-  #   if [[ -z "$TRAVIS_TAG" ]]; then
-  #     gem uninstall slugrust
-  #     CARGO=fake bundle exec rake install
-  #   fi
-  # - |
-  #   if [[ -z "$TRAVIS_TAG" ]]; then
-  #     gem uninstall slugrust
-  #     CARGO=fake gem install pkg/*.gem
-  #     bundle exec rake spec
-  #   fi
-  - if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then cat $THERMITE_DEBUG_FILENAME; fi
-
+- bundle exec rake spec
+- bundle exec rake thermite:tarball
+- bundle exec rake install
+- if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then cat $THERMITE_DEBUG_FILENAME; fi
 deploy:
+  - provider: rubygems
+    api_key:
+      secure: aTwtOlvbrCYKCtgISWXLaT0V2wEHj16fI/8gxckFGrI3rI2c/Z0jAXLNjEkFldu9xPRWIZoFMCnCyy/31Bk3Rb9Sj+QHkwryqr1CHQ+qWm188wlzucjEMh/etz7bEX7I7rPKstuuXgjsw0akb22eXv+EH0pYJqTdNQ9G7ii/PEWdgjP/InsKmUz3PbJ2Oomk/LcIR07dfDZZNpPJgLQYEOkl7rnse92Wdw9gncusDQuIafnpl6Bf7Rd4Jhx9C3yKbVYFfW9MGkYBhATiV9VKqBm5VnhbeOanUQLRLeS+KesaTX8g8qgV9eb4jZhiKgZ0dLjSEbbPPg0DsKp+ZqKJXXkkBbLeql25q6AwskYHo8oe8C8VcIZHFzEFY6MIUp3h0v135UnCVtKM0iBHA9u+tzMWqZmpwcWQoxsV2F+jHE5plh1y0rkQ3PvANlxgJn4pbSc6Upo34ApjYPgNSmp5Y6YRIrIKeWrKMPtA98ehTCJ4Itx9Ugez/BHEj63dXfjjEpT2cjI8sT8Fk4mEmPYdRQKZJpy1bQX27VnISgBK1uMHnppxXooI8xaS0nqnTwoIfEc6JzQZekuy+gHxnpS1PHjo6PzmbKJgYgWpD39ue7TrDOoQgAba1hNccF0BjgnCvg9lPEy9n68h+ULbjXtzsxiAk+hlka0km/Ecq26rcnc=
+    gem: slugrust
+    on:
+      branch: master
+      repo: ianks/slugrust
+      tags: true
   - provider: releases
     api_key:
-      secure: Dy3Ljq0N023aRdLbJOGB9zp7+JNlN0w4Bg07OKOBj6RSGWjSgzTQbHT5xY2ZRaSeo0gmgiSxjePdo0GL4k3hL3k7SiHBwE17dUHURYY9PV+Cszy8ygV1Jqr5z7KUmSJrmBEZ9rK/Dg9ZJgsMVHfLZZJYM5QYxAwWrPhXdTFQltZB/b6PwEID7/kyug+jWo8DqH4iyoqLEyNPB8LdS/ksqg/VvMAWNvHlnDlvHTO5Cq1BAzvtzxxY5GjOfhzBGuPLYjeQZiEJ4Ljcg3JJSU3W2rU7El3Yew2PCnV1U5AdUdG0Lm9TecUQ+WK7Zfz/dSsOdzQWWp1x37BqnNmPh9KQqrhP18X795foKm6wDWcEs6ABq5uxmWtDN9/x5l2t8OY5VmqlfoBgyntISpOIXxJB2PA/hJGiw5tMAXNw6jUonG5xYa93Av+NopcC5FJd+NQRv6knTPEtRS5ZY8XY2fNldIqY2vRGlpOmk8EQDnbsPbyqH9dDc7eJWSPZV3FEdgxTUe5EbGUvO47jWZFhRe2aj/9y/uy6yTLNTvO9B1zoC2/MGq9Y3/Tacd9Stf8LTWnze11Y3SQT/xhFm+QMk10N7aHT58KwLYlC+rcH76C2w7avGAX0rEpkVg3iIMCL246O9iWktxwHkmjXlF04ME4wO9VzGYUva6tQt6wIxle6Z+s=
+      secure: LNixPblWwpLtpsI6Aa0bcwYrGKs6wtJknvQ5ZZN+H7WBWHg9DXPk4fWYu04aoRLhmxnElv49bk5YgyIF6xGJpbhglMh8W/Y+JHhp6B1Oey/SK5VE/TCsno4eQTpKCVQCbfF0WYCEjHO6ym8jgTeqqJclSkzCXEMHaTzSc555+N86zIuT5xuVi6n0v9OpLVHEuEJ9hOAsCOiCetvUEsOeaqEVbO+BmJlpmmTKjPM1tgmMLUA15c6WblwpeU6FsVIkcdnvPxLjHR3C0+jVYnvdZFddSnL6bKIHjsAoWlEPz/lzkpUWrL1sz200aHnm3YI+WT+apuj7NxkOb1tocECLJ75WV07byCIGFRTPygZQnZhhhq8LZQxl7lcJZ0FocK4r4AE/fJTzflU5MLUvxEYzubulVlniKQFAkiiECWlH6eQEVLBGsPqEQylhGAMchzSMPqswAw6gwjv/TpJPhMJUtqvCPIRzpq/JNSpNZJ1sb6b+ZEfN/e6u/f9BAaLUclfiewzhNyaq1Nm08pEBhw1+OyhZ9SdFHzQG8Uy0MnP+kqBfYwMeDz1WmuA4h6kgagHyNk9Ik/Whvk/NqZzuEceFbaVUPa0v+ilNlZN98LtWaMsaum5R7JhBjsrovf1oxGB8cQE1eP2GbccBbmBCW+ZYtRhkTEpnK69Or1aW5MqN0M4=
     file: slugrust-*.tar.gz
     file_glob: true
     skip_cleanup: true
     on:
-      repo: ianks/slugrust
       branch: master
-      tags: true
-
-  - provider: rubygems
-    api_key:
-      secure: ffojlgGkfjcxCHf5kW7sfDB2I+K2g/YvqzIz/sOaTHcTbYjIVJHzgYkIXqqsqdGOFe8zSS/wi6Ax6N7fEqmSdanL9+U552/5Lodgoj0GdulV1dGeDt8Q71t+RJ2rbK5xdIkXcMcA0HL5LW7eQ6pzIjXryJ5Ro+sBGY8ZqCPtEal6mmUh3c8rXZICxmR69Z6IAhX2hipQIQ258ZzzWVoWjSYez7eSWtjMjrXqPokqfVmJRF26lQJdUO0UPdp6wsfY4a6Xxms/PUXimTas7WusgCPtHb4ygHJY5iRTjFQX/fDwnynDF3GlNfXufIn1qF6b9Hq10yDN3SHIdeIDrDmXJqnbqaWmyKzeorEonGX/GzXO8qaTS5zwuYjDYwpBQ266HPdFR82uPY+dDiJk+k3lTs3NBq+FHmzWUm1bFAKkzzsu8CytCKsl6SOuXWzuhwBWWNh82N3aGcAzhVz8dzcugWNCnt0SqjfyhuaeW+bgvQ7XmHE20Ocea8DD66fP8S5r2gb3NWBhwe4l5cd9eHGbekgyF4ZIIU4Sj8QuMW7M5dHU9gp+ZJkCJnREtrH1JSLILSoNJkd1dy75AofrK+GmpkVzbPmcZzet5g6Be5F32zQ/WRe1ZR1ytebUUr37FOCePWHgRmqGNYQ4ui+UBUHxjgJBxr+8Z8efLG/ZzJ4YxEo=
-    gem: slugrust
-    on:
       repo: ianks/slugrust
-      branch: master
       tags: true

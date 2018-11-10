@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    slugrust (0.1.0)
+    slugrust (0.1.1)
       thermite (~> 0)
 
 GEM

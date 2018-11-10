@@ -22,7 +22,7 @@ before_install:
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew update
     fi
-    rvm install "$SLUGRUST_RUBY_VERSION" --enable-shared
+    rvm install "$SLUGRUST_RUBY_VERSION" -C --enable-shared
     rvm use "$SLUGRUST_RUBY_VERSION"
     ruby --version
   - bundle install --jobs=3 --retry=3 --path=$TRAVIS_BUILD_DIR/vendor/bundle

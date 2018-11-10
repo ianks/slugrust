@@ -21,6 +21,7 @@ before_install:
   - |
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       rvm install "$SLUGRUST_RUBY_VERSION" --disable-binary
+      gem install bundler
     else
       rvm install "$SLUGRUST_RUBY_VERSION"
     fi

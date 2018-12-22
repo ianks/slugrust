@@ -9,7 +9,7 @@ Thermite::Tasks.new
 
 desc 'Run Rust & Ruby testsuites'
 task spec: ['thermite:build', 'thermite:test'] do
-  puts 'Hello bors?'
+  puts 'Hello bors!?'
 end
 
 task default: :spec
